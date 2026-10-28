@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://iinwkepvbta1"]
+
+[ext_resource type="Texture2D" uid="uid://b8ykvtq06i2wm" path="res://assets/sprites/decoracoes.png" id="1_io5yv"]
+
+[node name="Laptop" type="Node2D" unique_id=982802117]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=472678711]
+texture = ExtResource("1_io5yv")
+region_enabled = true
+region_rect = Rect2(64, 16, 16, 16)
