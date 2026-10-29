@@ -1,10 +1,38 @@
 [gd_scene format=3 uid="uid://iinwkepvbta1"]
 
+[ext_resource type="Script" uid="uid://u63umbvigkgm" path="res://scripts/laptop.gd" id="1_eqx3o"]
 [ext_resource type="Texture2D" uid="uid://b8ykvtq06i2wm" path="res://assets/sprites/decoracoes.png" id="1_io5yv"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2ube"]
+size = Vector2(40, 40)
+
+[sub_resource type="GDScript" id="GDScript_l0riy"]
+script/source = "extends CollisionShape2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
 [node name="Laptop" type="Node2D" unique_id=982802117]
+script = ExtResource("1_eqx3o")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=472678711]
 texture = ExtResource("1_io5yv")
 region_enabled = true
 region_rect = Rect2(64, 16, 16, 16)
+
+[node name="AreaDano" type="Area2D" parent="." unique_id=1604597980]
+position = Vector2(0, 8)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDano" unique_id=2089160457]
+shape = SubResource("RectangleShape2D_e2ube")
+script = SubResource("GDScript_l0riy")
