@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b8ykvtq06i2wm" path="res://assets/sprites/decoracoes.png" id="2_onkd6"]
 [ext_resource type="PackedScene" uid="uid://bici48or02gig" path="res://scenes/jogador.tscn" id="3_35g32"]
 [ext_resource type="PackedScene" uid="uid://iinwkepvbta1" path="res://scenes/laptop.tscn" id="4_21lwa"]
+[ext_resource type="PackedScene" uid="uid://2px7oj4x31k" path="res://scenes/inimigo.tscn" id="5_21lwa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_35g32"]
 texture = ExtResource("1_yfq87")
@@ -468,3 +469,9 @@ position = Vector2(294, 184)
 [node name="Laptop" parent="." unique_id=982802117 instance=ExtResource("4_21lwa")]
 z_index = 2
 position = Vector2(327, 175)
+
+[node name="Inimigo" parent="." unique_id=1640804471 instance=ExtResource("5_21lwa")]
+position = Vector2(188, 143)
+
+[node name="Inimigo2" parent="." unique_id=1088361417 instance=ExtResource("5_21lwa")]
+position = Vector2(251, 123)

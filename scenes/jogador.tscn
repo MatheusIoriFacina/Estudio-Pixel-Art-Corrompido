@@ -141,6 +141,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vwxko"]
 size = Vector2(10.5, 3)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2ube"]
+size = Vector2(16, 18)
+
 [node name="Jogador" type="CharacterBody2D" unique_id=158721841]
 collision_layer = 4
 collision_mask = 3
@@ -164,3 +167,13 @@ limit_top = -3
 limit_right = 640
 limit_bottom = 432
 limit_smoothed = true
+
+[node name="Ataque" type="Node2D" parent="." unique_id=719154346]
+position = Vector2(0, -3)
+
+[node name="Alcance" type="ShapeCast2D" parent="Ataque" unique_id=574401709]
+position = Vector2(14, 0)
+shape = SubResource("RectangleShape2D_e2ube")
+collision_mask = 8
+
+[node name="Rastro" type="Line2D" parent="Ataque" unique_id=729493547]
