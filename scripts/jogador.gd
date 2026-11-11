@@ -35,7 +35,8 @@ func _ready() -> void:
 	])
 
 	rastro.width = 3.0
-
+ 
+# Efeito visual elaborado com apoio do ChatGPT.
 	var cores := Gradient.new()
 	cores.set_color(0, Color("#ff55aa"))
 	cores.set_color(1, Color("#77eeff"))
