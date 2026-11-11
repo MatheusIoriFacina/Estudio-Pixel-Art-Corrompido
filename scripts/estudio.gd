@@ -42,7 +42,9 @@ func _process(_delta: float) -> void:
 		return
 
 	var segundos: int = ceili(timer_partida.time_left)
-	texto_tempo.text = "Tempo: %ds" % segundos
+	var minutos: int = floori(segundos / 60.0)
+
+	texto_tempo.text = "%02d:%02d" % [minutos, segundos % 60]
 
 
 func _gerar_inimigo() -> void:
@@ -68,7 +70,7 @@ func _vencer() -> void:
 	if acabou:
 		return
 
-	texto_tempo.text = "Tempo: 0s"
+	texto_tempo.text = "Tempo: 00:00"
 	_encerrar("VOCÊ VENCEU!\nO laptop foi protegido.")
 
 

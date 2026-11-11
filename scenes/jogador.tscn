@@ -163,9 +163,9 @@ shape = SubResource("RectangleShape2D_vwxko")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2081735990]
 process_callback = 0
 limit_left = 0
-limit_top = -3
+limit_top = -48
 limit_right = 640
-limit_bottom = 432
+limit_bottom = 384
 limit_smoothed = true
 
 [node name="Ataque" type="Node2D" parent="." unique_id=719154346]

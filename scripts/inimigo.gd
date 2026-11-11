@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var velocidade: float = 35.0
 @export var vida_maxima: int = 2
-@export var distancia_perseguicao: float = 64.0
+@export var grupo_alvo: String = "laptop"
 @export var alcance_ataque: float = 16.0
 
 var vida_atual: int
@@ -11,6 +11,7 @@ var recarga: float = 0.0
 var tempo_dano: float = 0.0
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var agente: NavigationAgent2D = $NavigationAgent2D
 
 
 func _ready() -> void:
@@ -24,33 +25,35 @@ func _physics_process(delta: float) -> void:
 
 	recarga = maxf(0.0, recarga - delta)
 	tempo_dano = maxf(0.0, tempo_dano - delta)
-
 	anim.modulate = Color.SALMON if tempo_dano > 0.0 else Color.WHITE
 
 	var jogador := get_tree().get_first_node_in_group("jogador") as Node2D
-	var alvo := get_tree().get_first_node_in_group("laptop") as Node2D
-
-	if is_instance_valid(jogador):
-		if global_position.distance_to(jogador.global_position) <= distancia_perseguicao:
-			if _caminho_livre(jogador):
-				alvo = jogador
+	var alvo := get_tree().get_first_node_in_group(grupo_alvo) as Node2D
 
 	if not is_instance_valid(alvo):
 		velocity = Vector2.ZERO
 		anim.stop()
 		return
 
-	if alvo == jogador and global_position.distance_to(alvo.global_position) <= alcance_ataque:
-		velocity = Vector2.ZERO
-		anim.stop()
+	# Pode ferir o artista sem trocar o destino da perseguição.
+	if is_instance_valid(jogador) and recarga <= 0.0:
+		if global_position.distance_to(jogador.global_position) <= alcance_ataque:
+			if _caminho_livre(jogador):
+				recarga = 0.9
+				jogador.receber_dano(1)
 
-		if recarga <= 0.0 and _caminho_livre(alvo):
-			recarga = 0.9
-			alvo.receber_dano(1)
+				# O dano pode ter encerrado a partida.
+				if not ativo:
+					return
 
-		return
+	agente.target_position = alvo.global_position
 
-	velocity = global_position.direction_to(alvo.global_position) * velocidade
+	velocity = Vector2.ZERO
+
+	if not agente.is_navigation_finished():
+		var proximo := agente.get_next_path_position()
+		velocity = global_position.direction_to(proximo) * velocidade
+
 	move_and_slide()
 
 	var movimento := get_real_velocity()

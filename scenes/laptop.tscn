@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b8ykvtq06i2wm" path="res://assets/sprites/decoracoes.png" id="1_io5yv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2ube"]
-size = Vector2(40, 40)
+size = Vector2(56, 56)
 
 [sub_resource type="GDScript" id="GDScript_l0riy"]
 script/source = "extends CollisionShape2D
