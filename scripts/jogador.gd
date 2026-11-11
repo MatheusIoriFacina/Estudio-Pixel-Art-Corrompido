@@ -27,18 +27,38 @@ func _ready() -> void:
 	vida_atual = vida_maxima
 
 	rastro.points = PackedVector2Array([
-		Vector2(8, -8),
-		Vector2(17, -5),
-		Vector2(22, 0),
-		Vector2(17, 5),
-		Vector2(8, 8)
+		Vector2(6, -6),
+		Vector2(20, -7),
+		Vector2(30, 0),
+		Vector2(20, 7),
+		Vector2(6, 6)
 	])
 
-	rastro.width = 2.0
-	rastro.default_color = Color.CYAN
+	rastro.width = 3.0
+
+	var cores := Gradient.new()
+	cores.set_color(0, Color("#ff55aa"))
+	cores.set_color(1, Color("#77eeff"))
+	rastro.gradient = cores
+
 	ataque.hide()
 
 
+# Efeito visual elaborado com apoio do ChatGPT.
+func _animar_golpe() -> void:
+	rastro.rotation = -0.35
+	rastro.width = 3.0
+	rastro.modulate.a = 1.0
+
+	var efeito := create_tween().set_parallel(true)
+
+	efeito.tween_property(rastro, "rotation", 0.35, 0.12)
+	efeito.tween_property(rastro, "width", 0.0, 0.12)
+	efeito.tween_property(
+		rastro, "modulate:a", 0.0, 0.08
+	).set_delay(0.04)
+	
+	
 func _physics_process(delta: float) -> void:
 	if encerrado:
 		return
@@ -93,11 +113,12 @@ func _atualizar_animacao() -> void:
 
 
 func _atacar() -> void:
-	recarga = 0.35
+	recarga = 0.20
 	tempo_efeito = 0.14
 
 	ataque.rotation = direcao_olhar.angle()
 	ataque.show()
+	_animar_golpe()
 	alcance.force_shapecast_update()
 
 	var atingidos: Array[Node2D] = []
@@ -128,7 +149,7 @@ func receber_dano(quantidade: int) -> void:
 		return
 
 	vida_atual = maxi(0, vida_atual - quantidade)
-	invulneravel = 0.6
+	invulneravel = 1.2
 	vida_alterada.emit(vida_atual, vida_maxima)
 
 	if vida_atual == 0:
